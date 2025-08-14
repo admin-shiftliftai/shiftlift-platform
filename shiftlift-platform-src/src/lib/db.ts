@@ -9,6 +9,9 @@ export function getPool() {
       throw new Error('DATABASE_URL is not set');
     }
     pool = new Pool({ connectionString });
-  }
+      // Set default search_path to our Prep schema
+    pool.query("set search_path to shiftlift_prep, public").catch(() => {});
+}
+  
   return pool;
 }
